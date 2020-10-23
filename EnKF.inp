@@ -1,0 +1,22 @@
+2                  !--- Problem 1:Karman vortex, 2:Vortex advection
+3                  !--- 1:EnKF(mes), 2:EnKS(mes), 3:EnKF(ens), 4:EnKS(ens)
+25                 !--- Number of filtering
+50                 !--- Ensemble size
+1                  !--- Initial ensemble, 1:WN, 2:Time-lag, 3:Vortex, 4:POD
+0.1                !    Initial error variance (used for white noise) 
+0.0                !    Error variance of pseudo measurement
+0.01               !    Measurement error variance
+0.1                !--- Covariance localization distance
+1.0                !--- Covariance inflation factor
+2 2                !--- Every iskip & jskip for measuremnt 
+-4.0d0 0.0d0       !--- Left and right of measurement area
+-1.0d0 1.0d0       !--- Bottom and top of measurement area
+------------------------------------------------------------------------------
+16                 !--- Number of time step
+100                !--- Reynolds number 
+80                 !--- Number of mesh: jmax (imax x jmax, imax = 3*jmax)
+0.02               !--- time step
+1                  !--- 0:initial, 1:restart
+1                  !--- 0:No output to screen,1:otherwise
+10                 !--- Output plot3d interval
+100000000          !--- Output history interval
