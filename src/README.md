@@ -56,20 +56,6 @@
 
 使用する変数を定義しています．
 
-## mt19937.f
-
-メルセンヌツイスターに基づく一様乱数を生成するコードです．本リポジトリには含まれませんが，初回の`make`実行時に以下サイトから自動的にダウンロードされます．Fortran標準のrandom_numberを用いることもできますが，その場合にはm_random3.f90内を修整してください．
-
-広島大学　松本眞先生のページ  
-http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/FORTRAN/TAKANO/mt19937.f
-
-## svd.f
-
-m_kfilter.f90内で逆行列を計算する際に利用します．本リポジトリには含まれませんが，初回の`make`実行時に以下サイトから自動的にダウンロードされます．
-
-EISPACKライブラリ  
-http://www.netlib.org/eispack/svd.f
-
 ## sub_bc_outer.f90
 
 計算領域の外側境界に流れの流入・流出などの境界条件を与えます．
@@ -99,3 +85,18 @@ http://www.netlib.org/eispack/svd.f
 アンサンブルを生成するためのサブルーチンが含まれています．
 
 
+# 初回コンパイル時にダウンロードされるソースコード
+
+## svd.f
+
+m_kfilter.f90内で逆行列を計算する際に利用します．本リポジトリには含まれませんが，初回の`make`実行時に以下サイトから自動的にダウンロードされます．
+
+EISPACKライブラリ  
+http://www.netlib.org/eispack/svd.f
+
+## pythag.f
+
+m_kfilter.f90内で逆行列を計算する際に利用します．本リポジトリには含まれませんが，初回の`make`実行時に以下サイトから自動的にダウンロードされます．
+
+EISPACKライブラリ  
+http://www.netlib.no/netlib/eispack/3090vf/double/pythag.f
