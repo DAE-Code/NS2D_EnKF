@@ -1,25 +1,29 @@
 # インプットファイルの説明（EnKF.inp）
 
-インプットファイル4DVar.inpの中身は以下のようになっています．
+インプットファイルEnKF.inpの中身は以下のようになっています．
 ```
-2                  !--- Mode (1:TLM&ADJ Check, 2:4DV, 3:4DV restart)
-1                  !--- Problem 1:Karman vortex, 2:Vortex advection
-17 50              !--- Number of 4DV cycles, iteration on each cycle
-0.0                !--- Error variance of pseudo measurement
-0.1                !--- Measurement error variance
-0.0                !--- Coefficient of background term
-4 4 40             !--- Every iskip & jskip & tskip for measuremnt 
--2.6d0 6.0d0       !--- Left and right of measurement area
--2.6d0 2.6d0       !--- Bottom and top of measurement area
+2                  !--- Problem 1:Karman vortex, 2:Vortex advection
+3                  !--- 1:EnKF(mes), 2:EnKS(mes), 3:EnKF(ens), 4:EnKS(ens)
+25                 !--- Number of filtering
+50                 !--- Ensemble size
+1                  !--- Initial ensemble, 1:WN, 2:Time-lag, 3:Vortex, 4:POD
+0.1                !    Initial error variance (used for white noise) 
+0.0                !    Error variance of pseudo measurement
+0.01               !    Measurement error variance
+0.1                !--- Covariance localization distance
+1.0                !--- Covariance inflation factor
+2 2                !--- Every iskip & jskip for measuremnt 
+-4.0d0 0.0d0       !--- Left and right of measurement area
+-1.0d0 1.0d0       !--- Bottom and top of measurement area
 ------------------------------------------------------------------------------
-150 150            !--- DA window step, Total number of time step
+16                 !--- Number of time step
 100                !--- Reynolds number 
 80                 !--- Number of mesh: jmax (imax x jmax, imax = 3*jmax)
 0.02               !--- time step
 1                  !--- 0:initial, 1:restart
 1                  !--- 0:No output to screen,1:otherwise
 10                 !--- Output plot3d interval
-20                 !--- Output history interval
+100000000      　   !--- Output history interval
 ```
 
 # ソースコードの説明
