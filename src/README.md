@@ -23,7 +23,7 @@
 1                  !--- 0:initial, 1:restart
 1                  !--- 0:No output to screen,1:otherwise
 10                 !--- Output plot3d interval
-100000000      　   !--- Output history interval
+100000000     　   !--- Output history interval
 ```
 
 # ソースコードの説明
