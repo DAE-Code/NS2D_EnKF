@@ -20,7 +20,7 @@ subroutine sub_kfilter_mes(vars,n_mes,n_ens,n_var,ef,cf,pm,cm,rm,ih,x1d,y1d,X5)
                                                           ! -- state vectors for all samples
   real(8)        ,intent(inout) :: cf(n_var)              ! State vector matrix 
   real(8)        ,intent(inout) :: pm(n_mes,n_ens)        ! Pseudo observations
-  real(8)        ,intent(inout) :: cm(n_mes)              ! Pseudo observations
+  real(8)        ,intent(inout) :: cm(n_mes)              ! Central case
   real(8)        ,intent(in)    :: rm(n_mes)              ! Real observations
   real(8)        ,intent(in)    :: x1d(n_var)             ! Central state vector
   real(8)        ,intent(in)    :: y1d(n_var)             ! Central state vector
