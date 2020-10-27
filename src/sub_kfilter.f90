@@ -35,7 +35,7 @@ subroutine sub_kfilter_mes(vars,n_mes,n_ens,n_var,ef,cf,pm,cm,rm,ih,x1d,y1d,X5)
   real(8)                       :: VH(n_var,n_mes)        ! (VH)
   real(8)                       :: w(n_var)               ! Average state
   real(8)                       :: v(n_mes)               ! Average measurement
-  real(8)                       :: R(n_mes,n_mes)         ! Measurement error matrix (R)
+  real(8)                       :: R(n_mes,n_mes)         ! Measurement error cov. matrix (R)
   real(8)                       :: Le(n_var)              ! Localization function
 !
   real(8)                       :: pml(n_mes,n_ens)       ! Work variables
