@@ -46,22 +46,6 @@ subroutine sub_p3dwrite(ostep,tstep,header)
   enddo
   close(30)
 !
-!
-#undef _matlab_
-#ifdef _matlab_
-  if(ostep==0) return
-  write(cicount,'(i6.6)') ostep/iskip_plot
-  if(ostep<=1) call system('mkdir matlab')
-  open(30,file='matlab/data_'//cicount//'.txt',form='formatted',status='replace')
-  do jc=2,jmax-2,2
-    write(30,'(100e15.7)') (q4(ic,jc,2),ic=3,imax-2,2)
-  enddo
-  do jc=2,jmax-2,2
-    write(30,'(100e15.7)') (q4(ic,jc,3),ic=3,imax-2,2)
-  enddo
-  close(30)
-#endif
-!
   return
 end subroutine sub_p3dwrite
 !-----------------------------------------------------------------------
