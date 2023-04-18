@@ -40,9 +40,9 @@ $(APNAME) : $(TARGET)
 %.o : %.f
 	$(FC) $(COPT) -c -o $@ $<
 svd.f :
-	test -f $@ || wget -O svd.f http://www.netlib.no/netlib/eispack/svd.f
+	test -f $@ || wget -O svd.f --no-check-certificate https://netlib.org/eispack/svd.f
 pythag.f :
-	test -f $@ || wget -O pythag.f http://www.netlib.no/netlib/eispack/3090vf/double/pythag.f
+	test -f $@ || wget -O pythag.f --no-check-certificate https://netlib.org/eispack/3090vf/double/pythag.f
 
 
 debug : $(TARGET)
