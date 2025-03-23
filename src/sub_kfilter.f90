@@ -183,12 +183,12 @@ subroutine sub_kfilter_ens(vars,n_mes,n_ens,n_var,ef,cf,pm,cm,rm,ih,x1d,y1d,X5)
   integer,        intent(in)    :: ih(n_mes)              ! Real observations
 !
   integer                       :: i,j,ierr,m,n_mes,n_ens,n_var
-  real(8)                       :: alpha,disn,localop
+  real(8)                       :: alpha,disn,localop,vari
 !
   real(8)                       :: efl(n_var,n_ens)       ! Localized state vector matrix 
   real(8)                       :: w(n_var)               ! Average state
   real(8)                       :: v(n_mes)               ! Average measurement
-  real(8)                       :: R(n_mes,n_mes)         ! Measurement error matrix (R)
+!!real(8)                       :: R(n_mes,n_mes)         ! Measurement error matrix (R)
   real(8)                       :: Le(n_var)              ! Local
   real(8)                       :: Lm(n_mes,n_mes)        ! Local
   real(8)                       :: af(n_var)              ! Average state vector
@@ -200,7 +200,7 @@ subroutine sub_kfilter_ens(vars,n_mes,n_ens,n_var,ef,cf,pm,cm,rm,ih,x1d,y1d,X5)
 !-For (n_ens)x(n_ens) matrix inversion
   real(8)                       :: IHEREH(n_ens,n_ens)    ! (I+(HE)^T R^(-1) HE)
   real(8)                       :: IHEREHi(n_ens,n_ens)   ! (I+(HE)^T R^(-1) HE)^(-1)
-  real(8)                       :: Ri(n_mes,n_mes)        ! Inverse of measurement error matrix (R)
+!!real(8)                       :: Ri(n_mes,n_mes)        ! Inverse of measurement error matrix (R)
   real(8)                       :: II(n_ens,n_ens)        ! n_ens x n_ens identity matrix 
   real(8)                       :: WW(n_ens)
   real(8)                       :: UU(n_ens,n_ens)
@@ -211,12 +211,13 @@ subroutine sub_kfilter_ens(vars,n_mes,n_ens,n_var,ef,cf,pm,cm,rm,ih,x1d,y1d,X5)
 !
 !
 !-Measurement error covariance matrix (R) and measuremnt operator matrix (H)
-  R (:,:) = 0.d0
-  Ri(:,:) = 0.d0
-  do m=1,n_mes
-    R (m,m) = vars%mes     ! n_mes x n_mes diagonal obs error covariance matrix
-    Ri(m,m) = 1.d0/R(m,m)  ! Inverse of n_mes x n_mes diagonal obs error covariance matrix
-  enddo
+!!R (:,:) = 0.d0
+!!Ri(:,:) = 0.d0
+!!do m=1,n_mes
+!!  R (m,m) = vars%mes     ! n_mes x n_mes diagonal obs error covariance matrix
+!!  Ri(m,m) = 1.d0/R(m,m)  ! Inverse of n_mes x n_mes diagonal obs error covariance matrix
+!!enddo
+  vari = 1.d0/vars%mes
 !
   II(:,:) = 0.d0
   do m=1,n_ens
@@ -273,7 +274,7 @@ subroutine sub_kfilter_ens(vars,n_mes,n_ens,n_var,ef,cf,pm,cm,rm,ih,x1d,y1d,X5)
   endif
 !
 !-Calculation of a matrix (I+(HE)^T R^(-1) HE), which needs to be inversed
-  IHEREH=II+matmul(matmul(transpose(pml),Ri),pml)/dble(n_ens-1)
+  IHEREH=II+matmul(transpose(pml)*vari,pml)/dble(n_ens-1)
 !
 !-Matrix inversion (HVH^t+R)^(-1)            : n_mes x n_mes (sub_kfilter_mes)
 !-Matrix inversion (I+(HE)^t R^(-1) HE)^(-1) : n_ens x n_ens (here)
@@ -289,7 +290,7 @@ subroutine sub_kfilter_ens(vars,n_mes,n_ens,n_var,ef,cf,pm,cm,rm,ih,x1d,y1d,X5)
 ! (y-Hx)
   d = rm-cm 
 ! (I+(HE)^T R^(-1) HE)^(-1) (HE)^(T) R^(-1) (y-Hx)
-  dd = matmul(matmul(IHEREHi,matmul(transpose(pml),Ri)),d)
+  dd = matmul(matmul(IHEREHi,transpose(pml)*vari),d)
 ! x_new = x + E (I+(HE)^T R^(-1) HE)^(-1) (HE)^(T) R^(-1) (y-Hx)
   cf = cf+matmul(efl,dd)/dble(n_ens-1)
 !
@@ -300,7 +301,7 @@ subroutine sub_kfilter_ens(vars,n_mes,n_ens,n_var,ef,cf,pm,cm,rm,ih,x1d,y1d,X5)
 !   (y-Hx+w)
     d       = rm+dsqrt(vars%mes)*d-pm(:,j)
 !   (I+(HE)^T R^(-1) HE)^(-1) (HE)^(T) R^(-1) (y-Hx)
-    dd      = matmul(matmul(IHEREHi,matmul(transpose(pml),Ri)),d)
+    dd      = matmul(matmul(IHEREHi,transpose(pml)*vari),d)
 !   x_new = x + E (I+(HE)^T R^(-1) HE)^(-1) (HE)^(T) R^(-1) (y-Hx)
     ef(:,j) = ef(:,j)+matmul(efl,dd)/dble(n_ens-1)
 !
